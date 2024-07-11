@@ -1,4 +1,6 @@
-module sigs.k8s.io/kubectl-validate
+module github.com/wfarr/kubectl-validate
+
+replace sigs.k8s.io/kubectl-validate => .
 
 go 1.22.0
 
@@ -15,6 +17,7 @@ require (
 	k8s.io/apiserver v0.30.1
 	k8s.io/client-go v0.30.1
 	k8s.io/kube-openapi v0.0.0-20240228011516-70dd3763d340
+	sigs.k8s.io/kubectl-validate v0.0.4
 	sigs.k8s.io/yaml v1.3.0
 )
 
