@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bufio"
 	"bytes"
 	"io"
 	"strings"
@@ -12,16 +13,15 @@ type Document = []byte
 
 func SplitYamlDocuments(fileBytes Document) ([]Document, error) {
 	var documents [][]byte
-	decoder := utilyaml.NewDocumentDecoder(io.NopCloser(bytes.NewReader(fileBytes)))
+	reader := utilyaml.NewYAMLReader(bufio.NewReader(bytes.NewReader(fileBytes)))
 	for {
-		var document []byte
-		len, err := decoder.Read(document)
-		if err == io.EOF || len == 0 {
+		document, err := reader.Read()
+		if err == io.EOF || len(document) == 0 {
 			break
 		} else if err != nil {
 			return nil, err
 		}
-		documents = append(documents, []byte(document))
+		documents = append(documents, document)
 	}
 	return documents, nil
 }
